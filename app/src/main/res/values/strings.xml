@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Receitas</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="receita_content_description">Imagem da receita</string>
+    <string name="nome_receita">Nome da Receita</string>
+</resources>
