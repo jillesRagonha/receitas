@@ -88,11 +88,18 @@ public class ReceitasAdapter extends RecyclerView.Adapter<ReceitasAdapter.Receit
 
         }
 
-        @OnClick(R.id.item_receita)
-        void clickItem() {
+        @OnClick(R.id.btn_ingredientes)
+        void clickIngredientes() {
             Receita receita = listaReceitas.get(getAdapterPosition());
             ReceitasDelegate delegate = (ReceitasDelegate) itemView.getContext();
-            delegate.lidaComReceitaSelecionada(receita);
+            delegate.lidaComIngredienteSelecionado(receita);
+        }
+
+        @OnClick(R.id.btn_passos)
+        void clickPassos() {
+            Receita receita = listaReceitas.get(getAdapterPosition());
+            ReceitasDelegate delegate = (ReceitasDelegate) itemView.getContext();
+            delegate.lidaComPassosReceitaSelecionada(receita);
         }
 
     }

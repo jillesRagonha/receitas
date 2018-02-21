@@ -41,10 +41,12 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/btn_ingredientes"
                 style="@style/EstiloBotaoCards"
                 android:text="@string/texto_botao_ingredientes" />
 
             <Button
+                android:id="@+id/btn_passos"
                 style="@style/EstiloBotaoCards"
                 android:text="@string/texto_botao_steps" />
         </LinearLayout>

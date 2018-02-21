@@ -1,7 +1,6 @@
 package br.com.agilles.receitas.ui.activity;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +14,7 @@ import java.util.List;
 import br.com.agilles.receitas.R;
 import br.com.agilles.receitas.delegate.ReceitasDelegate;
 import br.com.agilles.receitas.eventBus.ReceitaEvent;
+import br.com.agilles.receitas.models.Ingrediente;
 import br.com.agilles.receitas.models.Receita;
 import br.com.agilles.receitas.services.WebCliente;
 import br.com.agilles.receitas.ui.fragments.IngredientesFragment;
@@ -54,12 +54,35 @@ public class ReceitasActivity extends AppCompatActivity implements ReceitasDeleg
     @Override
     public void lidaComReceitas(List<Receita> receitas) {
 
-
     }
 
     @Override
     public void lidaComReceitaSelecionada(Receita receita) {
         Toast.makeText(this, "Vc clicou em uma receita", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void lidaComIngredienteSelecionado(Receita receita) {
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction tx = manager.beginTransaction();
+        if (!estaNoModoPaisagem()) {
+            ingredientesFragment = new IngredientesFragment();
+            Bundle parametros = new Bundle();
+            parametros.putSerializable("receita", receita);
+            ingredientesFragment.setArguments(parametros);
+            tx.replace(R.id.frame_principal, ingredientesFragment);
+            tx.addToBackStack(null);
+            tx.commit();
+        } else {
+            IngredientesFragment ingredientesFragment = (IngredientesFragment) manager.findFragmentById(R.id.frame_secundario);
+        }
+
+    }
+
+    @Override
+    public void lidaComPassosReceitaSelecionada(Receita receita) {
+        Toast.makeText(this, "Vc clicou em passos", Toast.LENGTH_SHORT).show();
+
     }
 
     @Subscribe
@@ -79,4 +102,6 @@ public class ReceitasActivity extends AppCompatActivity implements ReceitasDeleg
         EventBus.getDefault().unregister(this);
         super.onStop();
     }
+
+
 }

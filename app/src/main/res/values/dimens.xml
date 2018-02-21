@@ -10,4 +10,6 @@
     <dimen name="padding_botao">10dp</dimen>
     <dimen name="tamanho_texto_botao">14dp</dimen>
     <dimen name="tamanho_titulo_ingredientes">24sp</dimen>
+    <dimen name="tamanho_imagem_receita_horizontal">150dp</dimen>
+    <dimen name="altura_card_horizontal">350dp</dimen>
 </resources>

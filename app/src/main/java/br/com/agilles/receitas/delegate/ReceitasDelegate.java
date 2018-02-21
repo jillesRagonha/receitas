@@ -13,4 +13,8 @@ public interface ReceitasDelegate {
     void lidaComReceitas(List<Receita> receitas);
 
     void lidaComReceitaSelecionada(Receita receita);
+
+    void lidaComIngredienteSelecionado(Receita receita);
+
+    void lidaComPassosReceitaSelecionada(Receita receita);
 }

@@ -20,7 +20,7 @@
         android:textStyle="bold"/>
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/ingrediente_quantidade"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -32,7 +32,6 @@
         tools:text="16" />
 
     <TextView
-        android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -48,7 +47,7 @@
         android:layout_marginLeft="16dp" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/ingrediente_medida"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -56,7 +55,7 @@
         android:layout_marginTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/ingrediente_quantidade"
         tools:text="Copo"
         android:layout_marginRight="16dp"
         android:textColor="@color/colorPrimaryText"/>

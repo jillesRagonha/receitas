@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item_receita"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="@dimen/altura_card_horizontal"
     app:cardCornerRadius="@dimen/card_cornerRadius"
     app:cardElevation="@dimen/card_elevation"
     app:cardUseCompatPadding="true"
@@ -27,28 +27,28 @@
         <ImageView
             android:id="@+id/receitas_imagem_principal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/tamanho_imagem_receita_horizontal"
             android:layout_margin="5dp"
             android:contentDescription="@string/receita_content_description"
-            android:src="@drawable/food_placeholder"
-            android:scaleType="centerCrop"/>
+            android:scaleType="centerCrop"
+            android:scaleX="1"
+            android:scaleY="1"
+            android:src="@drawable/food_placeholder" />
 
+        <Button
+            android:id="@+id/btn_ingredientes"
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_margin="@dimen/margem_padrao">
+            style="@style/EstiloBotaoCards"
+            android:layout_gravity="center"
+            android:text="@string/texto_botao_ingredientes" />
 
-            <Button
-                style="@style/EstiloBotaoCards"
-                android:text="@string/texto_botao_ingredientes" />
+        <Button
+            android:id="@+id/btn_passos"
 
-            <Button
-                style="@style/EstiloBotaoCards"
-                android:text="@string/texto_botao_steps" />
+            style="@style/EstiloBotaoCards"
+            android:layout_gravity="center"
+            android:text="@string/texto_botao_steps" />
 
-        </LinearLayout>
 
     </LinearLayout>
 
