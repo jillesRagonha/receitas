@@ -1,9 +1,11 @@
 package br.com.agilles.receitas.ui.activity;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -15,6 +17,7 @@ import br.com.agilles.receitas.delegate.ReceitasDelegate;
 import br.com.agilles.receitas.eventBus.ReceitaEvent;
 import br.com.agilles.receitas.models.Receita;
 import br.com.agilles.receitas.services.WebCliente;
+import br.com.agilles.receitas.ui.fragments.IngredientesFragment;
 import br.com.agilles.receitas.ui.fragments.ListaReceitasFragment;
 import butterknife.ButterKnife;
 
@@ -23,7 +26,7 @@ public class ReceitasActivity extends AppCompatActivity implements ReceitasDeleg
     WebCliente webCliente = new WebCliente();
 
     ListaReceitasFragment listaReceitasFragment = new ListaReceitasFragment();
-
+    IngredientesFragment ingredientesFragment = new IngredientesFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +40,8 @@ public class ReceitasActivity extends AppCompatActivity implements ReceitasDeleg
         tx.replace(R.id.frame_principal, listaReceitasFragment);
 
         if (estaNoModoPaisagem()) {
-            //TODO criar o fragment do modo paisagem
+
+            tx.replace(R.id.frame_secundario, ingredientesFragment);
         }
 
         tx.commit();
@@ -50,11 +54,12 @@ public class ReceitasActivity extends AppCompatActivity implements ReceitasDeleg
     @Override
     public void lidaComReceitas(List<Receita> receitas) {
 
+
     }
 
     @Override
     public void lidaComReceitaSelecionada(Receita receita) {
-
+        Toast.makeText(this, "Vc clicou em uma receita", Toast.LENGTH_SHORT).show();
     }
 
     @Subscribe

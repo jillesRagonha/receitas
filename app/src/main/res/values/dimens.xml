@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="tamanho_titulo">24sp</dimen>
+    <dimen name="tamanho_titulo">36sp</dimen>
     <dimen name="card_cornerRadius">8dp</dimen>
     <dimen name="card_elevation">10dp</dimen>
     <dimen name="no_height">0dp</dimen>
-    <dimen name="tamanho_imagem_receita">150dp</dimen>
+    <dimen name="tamanho_imagem_receita">250dp</dimen>
+    <dimen name="altura_botao">36dp</dimen>
+    <dimen name="margem_padrao">5dp</dimen>
+    <dimen name="padding_botao">10dp</dimen>
+    <dimen name="tamanho_texto_botao">14dp</dimen>
+    <dimen name="tamanho_titulo_ingredientes">24sp</dimen>
 </resources>

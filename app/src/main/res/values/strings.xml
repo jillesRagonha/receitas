@@ -5,4 +5,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="receita_content_description">Imagem da receita</string>
     <string name="nome_receita">Nome da Receita</string>
+    <string name="texto_botao_ingredientes">Ingredientes</string>
+    <string name="texto_botao_steps">Como Fazer</string>
+    <string name="ingrediente">Ingrediente</string>
+    <string name="quantidade">Quantidade</string>
 </resources>

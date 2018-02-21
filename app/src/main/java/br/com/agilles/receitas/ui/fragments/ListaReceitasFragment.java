@@ -15,7 +15,6 @@ import java.util.List;
 import br.com.agilles.receitas.R;
 import br.com.agilles.receitas.adapter.ReceitasAdapter;
 import br.com.agilles.receitas.models.Receita;
-import br.com.agilles.receitas.services.WebCliente;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -37,12 +36,7 @@ public class ListaReceitasFragment extends Fragment {
     }
 
     private void configuraLista() {
-
-        if (!getActivity().getResources().getBoolean(R.bool.modoPaisagem)) {
-            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        } else {
-            //TODO implementar metodo GridLayout para paisagem
-        }
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(new ReceitasAdapter(listaReceitas, getContext()));
 

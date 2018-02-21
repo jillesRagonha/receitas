@@ -52,7 +52,7 @@ public class ReceitasAdapter extends RecyclerView.Adapter<ReceitasAdapter.Receit
 
     @Override
     public int getItemCount() {
-        return 0;
+        return listaReceitas.size();
     }
 
     public class ReceitasViewHolder extends RecyclerView.ViewHolder {
@@ -71,10 +71,21 @@ public class ReceitasAdapter extends RecyclerView.Adapter<ReceitasAdapter.Receit
 
         void bind(Receita receita) {
             mTxtNomeReceita.setText(receita.getNome());
-            Picasso.with(mImagemPrincipal.getContext())
-                    .load(receita.getImagem())
-                    .placeholder(R.drawable.food_placeholder)
-                    .into(mImagemPrincipal);
+            if (receita.getImagem().isEmpty() || receita.getImagem() == null) {
+                Picasso.with(mImagemPrincipal.getContext())
+                        .load(R.drawable.food_placeholder)
+                        .placeholder(R.drawable.food_placeholder)
+                        .error(R.drawable.food_placeholder)
+                        .into(mImagemPrincipal);
+
+            } else {
+                Picasso.with(mImagemPrincipal.getContext())
+                        .load(receita.getImagem())
+                        .placeholder(R.drawable.food_placeholder)
+                        .error(R.drawable.food_placeholder)
+                        .into(mImagemPrincipal);
+            }
+
         }
 
         @OnClick(R.id.item_receita)
