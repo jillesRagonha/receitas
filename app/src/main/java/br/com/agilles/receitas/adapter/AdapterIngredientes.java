@@ -10,13 +10,22 @@ import java.util.List;
 
 import br.com.agilles.receitas.R;
 import br.com.agilles.receitas.models.Ingrediente;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by jille on 21/02/2018.
  */
 
 public class AdapterIngredientes extends BaseAdapter {
+    @BindView(R.id.ingrediente_nomeIngrediente)
+    TextView nomeIngrediente;
 
+    @BindView(R.id.ingrediente_quantidade)
+    TextView quantidadeIngrediente;
+
+    @BindView(R.id.ingrediente_medida)
+    TextView medidaIngrediente;
     private List<Ingrediente> listaIngredientes;
     private Activity activity;
 
@@ -44,14 +53,14 @@ public class AdapterIngredientes extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         View novaView = activity.getLayoutInflater()
                 .inflate(R.layout.ingrediente_list_item, viewGroup, false);
+        ButterKnife.bind(this, novaView);
         Ingrediente ingrediente = listaIngredientes.get(i);
-        TextView txtNomeIngrediente = (TextView) novaView.findViewById(R.id.ingrediente_nomeIngrediente);
-        txtNomeIngrediente.setText(ingrediente.getNomeIngrediente());
-
+        nomeIngrediente.setText(ingrediente.getNomeIngrediente());
+        medidaIngrediente.setText(ingrediente.getMedida());
+        quantidadeIngrediente.setText(String.valueOf(ingrediente.getQtde()));
         return novaView;
 
     }
-
 
 
 }
