@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:elevation="10dp"
     app:cardCornerRadius="8dp"
     app:cardUseCompatPadding="true">
@@ -21,31 +21,40 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/tamanho_titulo_ingredientes"
-                android:textColor="@color/colorTextIcons"
-                android:textStyle="bold"
                 android:layout_margin="@dimen/margem_padrao"
-                android:text="@string/ingrediente"/>
+                android:text="@string/ingrediente"
+                android:textColor="@color/colorTextIcons"
+                android:textSize="@dimen/tamanho_titulo_ingredientes"
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/tamanho_titulo_ingredientes"
-                android:textColor="@color/colorTextIcons"
-                android:textStyle="bold"
-                android:text="@string/quantidade"
+                android:layout_alignParentRight="true"
                 android:layout_margin="@dimen/margem_padrao"
-
-                android:layout_alignParentRight="true"/>
+                android:text="@string/quantidade"
+                android:textColor="@color/colorTextIcons"
+                android:textSize="@dimen/tamanho_titulo_ingredientes"
+                android:textStyle="bold" />
 
         </RelativeLayout>
 
-        <ListView
+        <TextView
+            android:id="@+id/textViewReceitaVazia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:layout_margin="@dimen/margem_padrao"
+            android:gravity="center"
+            android:text="@string/sem_receita"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="@dimen/tamanho_titulo" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/ingredientes_list_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/ingredientes_list_view"
             tools:listitem="@layout/ingrediente_list_item" />
-
 
 
     </LinearLayout>

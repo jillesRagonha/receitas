@@ -9,5 +9,6 @@
     <string name="texto_botao_steps">Como Fazer</string>
     <string name="ingrediente">Ingrediente</string>
     <string name="quantidade">Quantidade</string>
-    <string name="medida">Medida</string>
+    <string name="medida">Tipo de Medida</string>
+    <string name="sem_receita">Selecione uma receita na lateral</string>
 </resources>

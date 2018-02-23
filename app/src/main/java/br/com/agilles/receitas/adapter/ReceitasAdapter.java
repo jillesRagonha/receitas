@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -24,6 +25,7 @@ import butterknife.OnClick;
  */
 
 public class ReceitasAdapter extends RecyclerView.Adapter<ReceitasAdapter.ReceitasViewHolder> {
+
 
     private List<Receita> listaReceitas;
     private final Context context;
@@ -55,6 +57,8 @@ public class ReceitasAdapter extends RecyclerView.Adapter<ReceitasAdapter.Receit
         return listaReceitas.size();
     }
 
+
+
     public class ReceitasViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.receitas_imagem_principal)
@@ -85,6 +89,7 @@ public class ReceitasAdapter extends RecyclerView.Adapter<ReceitasAdapter.Receit
                         .error(R.drawable.food_placeholder)
                         .into(mImagemPrincipal);
             }
+
 
         }
 

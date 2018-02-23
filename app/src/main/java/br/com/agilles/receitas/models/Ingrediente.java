@@ -2,18 +2,20 @@ package br.com.agilles.receitas.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
+
 /**
  * Created by jille on 20/02/2018.
  */
 
-public class Ingrediente {
+public class Ingrediente implements Serializable {
 
     @JsonProperty("ingredient")
     private String nomeIngrediente;
     @JsonProperty("measure")
     private String medida;
     @JsonProperty("quantity")
-    private int qtde;
+    private float qtde;
 
 
     public String getNomeIngrediente() {
@@ -32,7 +34,7 @@ public class Ingrediente {
         this.medida = medida;
     }
 
-    public int getQtde() {
+    public float getQtde() {
         return qtde;
     }
 

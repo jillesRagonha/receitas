@@ -1,9 +1,12 @@
 package br.com.agilles.receitas.ui.activity;
 
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
@@ -14,11 +17,11 @@ import java.util.List;
 import br.com.agilles.receitas.R;
 import br.com.agilles.receitas.delegate.ReceitasDelegate;
 import br.com.agilles.receitas.eventBus.ReceitaEvent;
-import br.com.agilles.receitas.models.Ingrediente;
 import br.com.agilles.receitas.models.Receita;
 import br.com.agilles.receitas.services.WebCliente;
 import br.com.agilles.receitas.ui.fragments.IngredientesFragment;
 import br.com.agilles.receitas.ui.fragments.ListaReceitasFragment;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ReceitasActivity extends AppCompatActivity implements ReceitasDelegate {
@@ -28,10 +31,15 @@ public class ReceitasActivity extends AppCompatActivity implements ReceitasDeleg
     ListaReceitasFragment listaReceitasFragment = new ListaReceitasFragment();
     IngredientesFragment ingredientesFragment = new IngredientesFragment();
 
+    @BindView(R.id.progressBar)
+    ProgressBar mProgressBar;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_receitas);
+
 
         ButterKnife.bind(this);
 
@@ -72,9 +80,11 @@ public class ReceitasActivity extends AppCompatActivity implements ReceitasDeleg
             ingredientesFragment.setArguments(parametros);
             tx.replace(R.id.frame_principal, ingredientesFragment);
             tx.addToBackStack(null);
+            tx.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
             tx.commit();
         } else {
             IngredientesFragment ingredientesFragment = (IngredientesFragment) manager.findFragmentById(R.id.frame_secundario);
+            ingredientesFragment.populaCamposComReceita(receita);
         }
 
     }
@@ -88,6 +98,7 @@ public class ReceitasActivity extends AppCompatActivity implements ReceitasDeleg
     @Subscribe
     public void lidaComSucesso(ReceitaEvent event) {
         listaReceitasFragment.populaListaCom(event.listaReceitas);
+        mProgressBar.setVisibility(View.INVISIBLE);
     }
 
     @Override

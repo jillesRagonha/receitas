@@ -59,6 +59,7 @@ public class WebCliente {
             Log.d(TAG, "Carregando receitas do banco");
             EventBus.getDefault().post(new ReceitaEvent(listaReceitas));
         }
+
     }
 
 }

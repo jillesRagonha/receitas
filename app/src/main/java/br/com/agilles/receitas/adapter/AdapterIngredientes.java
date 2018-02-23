@@ -1,9 +1,11 @@
 package br.com.agilles.receitas.adapter;
 
 import android.app.Activity;
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.List;
@@ -17,50 +19,63 @@ import butterknife.ButterKnife;
  * Created by jille on 21/02/2018.
  */
 
-public class AdapterIngredientes extends BaseAdapter {
-    @BindView(R.id.ingrediente_nomeIngrediente)
-    TextView nomeIngrediente;
+public class AdapterIngredientes extends RecyclerView.Adapter<AdapterIngredientes.IngredientesViewHolder> {
 
-    @BindView(R.id.ingrediente_quantidade)
-    TextView quantidadeIngrediente;
 
-    @BindView(R.id.ingrediente_medida)
-    TextView medidaIngrediente;
     private List<Ingrediente> listaIngredientes;
-    private Activity activity;
+    private Context context;
 
-    public AdapterIngredientes(List<Ingrediente> listaIngredientes, Activity activity) {
+    public AdapterIngredientes(List<Ingrediente> listaIngredientes, Context context) {
         this.listaIngredientes = listaIngredientes;
-        this.activity = activity;
+        this.context = context;
     }
 
     @Override
-    public int getCount() {
+    public IngredientesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        Context context = parent.getContext();
+        int idDoLayout = R.layout.ingrediente_list_item;
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View view = inflater.inflate(idDoLayout, parent, false);
+        return new IngredientesViewHolder(view);
+
+    }
+
+    @Override
+    public void onBindViewHolder(IngredientesViewHolder holder, int position) {
+        IngredientesViewHolder ingredientesViewHolder = (IngredientesViewHolder) holder;
+        Ingrediente ingrediente = listaIngredientes.get(position);
+        ingredientesViewHolder.bind(ingrediente);
+
+    }
+
+    @Override
+    public int getItemCount() {
         return listaIngredientes.size();
     }
 
-    @Override
-    public Object getItem(int i) {
-        return listaIngredientes.get(i);
+
+    public class IngredientesViewHolder extends RecyclerView.ViewHolder {
+
+        @BindView(R.id.ingrediente_nomeIngrediente)
+        TextView nomeIngrediente;
+
+        @BindView(R.id.ingrediente_quantidade)
+        TextView quantidadeIngrediente;
+
+        @BindView(R.id.ingrediente_medida)
+        TextView medidaIngrediente;
+
+        public IngredientesViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+
+        }
+
+        void bind(Ingrediente ingrediente) {
+            nomeIngrediente.setText(ingrediente.getNomeIngrediente());
+            medidaIngrediente.setText(ingrediente.getMedida());
+            quantidadeIngrediente.setText(String.valueOf(ingrediente.getQtde()));
+        }
     }
-
-    @Override
-    public long getItemId(int i) {
-        return 0;
-    }
-
-    @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        View novaView = activity.getLayoutInflater()
-                .inflate(R.layout.ingrediente_list_item, viewGroup, false);
-        ButterKnife.bind(this, novaView);
-        Ingrediente ingrediente = listaIngredientes.get(i);
-        nomeIngrediente.setText(ingrediente.getNomeIngrediente());
-        medidaIngrediente.setText(ingrediente.getMedida());
-        quantidadeIngrediente.setText(String.valueOf(ingrediente.getQtde()));
-        return novaView;
-
-    }
-
 
 }

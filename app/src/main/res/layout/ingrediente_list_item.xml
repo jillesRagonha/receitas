@@ -1,61 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/ingrediente_nomeIngrediente"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margem_padrao"
+            android:textColor="@color/colorPrimaryText"
+            tools:text="Nome do Ingrediente" />
+
+        <TextView
+            android:id="@+id/ingrediente_quantidade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_margin="@dimen/margem_padrao"
+            android:textColor="@color/colorPrimaryText"
+            tools:text="16" />
+
+        <TextView
+            android:id="@+id/ingrediente_medida"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/ingrediente_quantidade"
+            android:layout_alignRight="@+id/ingrediente_quantidade"
+            android:layout_below="@+id/ingrediente_quantidade"
+            android:textColor="@color/colorPrimaryText"
+            tools:text="Copo" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorPrimaryLight"
+        android:layout_marginTop="@dimen/margem_padrao"
+        />
 
 
-    <TextView
-        android:id="@+id/ingrediente_nomeIngrediente"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:textColor="@color/colorPrimaryText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Nome do Ingrediente"
-        android:textStyle="bold"/>
 
-    <TextView
-        android:id="@+id/ingrediente_quantidade"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="16dp"
-        android:textColor="@color/colorPrimaryText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="16" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:textColor="@color/colorPrimaryText"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ingrediente_nomeIngrediente"
-        tools:text="Medida"
-        android:layout_marginLeft="16dp" />
-
-    <TextView
-        android:id="@+id/ingrediente_medida"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ingrediente_quantidade"
-        tools:text="Copo"
-        android:layout_marginRight="16dp"
-        android:textColor="@color/colorPrimaryText"/>
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

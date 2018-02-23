@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,7 +25,7 @@ public class Receita implements Serializable {
     private int rendimento;
 
     @JsonProperty("ingredients")
-    private List<Ingrediente> ingredientes;
+    private ArrayList<Ingrediente> ingredientes;
 
     @JsonProperty("steps")
     private List<Passos> passos;
@@ -45,7 +46,7 @@ public class Receita implements Serializable {
         this.nome = nome;
     }
 
-    public List<Ingrediente> getIngredientes() {
+    public ArrayList<Ingrediente> getIngredientes() {
         return ingredientes;
     }
 
@@ -53,7 +54,7 @@ public class Receita implements Serializable {
         return passos;
     }
 
-    public void setIngredientes(List<Ingrediente> ingredientes) {
+    public void setIngredientes(ArrayList<Ingrediente> ingredientes) {
         this.ingredientes = ingredientes;
     }
 
