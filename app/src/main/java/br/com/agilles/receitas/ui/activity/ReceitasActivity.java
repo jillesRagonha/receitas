@@ -1,7 +1,7 @@
 package br.com.agilles.receitas.ui.activity;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +21,7 @@ import br.com.agilles.receitas.models.Receita;
 import br.com.agilles.receitas.services.WebCliente;
 import br.com.agilles.receitas.ui.fragments.IngredientesFragment;
 import br.com.agilles.receitas.ui.fragments.ListaReceitasFragment;
+import br.com.agilles.receitas.ui.fragments.PassosFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -30,6 +31,8 @@ public class ReceitasActivity extends AppCompatActivity implements ReceitasDeleg
 
     ListaReceitasFragment listaReceitasFragment = new ListaReceitasFragment();
     IngredientesFragment ingredientesFragment = new IngredientesFragment();
+    PassosFragment passosFragment = new PassosFragment();
+    Fragment fragment = new IngredientesFragment();
 
     @BindView(R.id.progressBar)
     ProgressBar mProgressBar;
@@ -46,12 +49,9 @@ public class ReceitasActivity extends AppCompatActivity implements ReceitasDeleg
         FragmentManager supportFragmentManager = getSupportFragmentManager();
         FragmentTransaction tx = supportFragmentManager.beginTransaction();
         tx.replace(R.id.frame_principal, listaReceitasFragment);
-
         if (estaNoModoPaisagem()) {
-
             tx.replace(R.id.frame_secundario, ingredientesFragment);
         }
-
         tx.commit();
     }
 
@@ -85,13 +85,30 @@ public class ReceitasActivity extends AppCompatActivity implements ReceitasDeleg
         } else {
             IngredientesFragment ingredientesFragment = (IngredientesFragment) manager.findFragmentById(R.id.frame_secundario);
             ingredientesFragment.populaCamposComReceita(receita);
+
         }
 
     }
 
     @Override
     public void lidaComPassosReceitaSelecionada(Receita receita) {
-        Toast.makeText(this, "Vc clicou em passos", Toast.LENGTH_SHORT).show();
+
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction tx = manager.beginTransaction();
+        if (!estaNoModoPaisagem()) {
+            passosFragment = new PassosFragment();
+            Bundle parametros = new Bundle();
+            parametros.putSerializable("receita", receita);
+            passosFragment.setArguments(parametros);
+            tx.replace(R.id.frame_principal, passosFragment);
+            tx.addToBackStack(null);
+            tx.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+            tx.commit();
+        } else {
+
+            PassosFragment passosFragment = (PassosFragment) manager.findFragmentById(R.id.frame_secundario);
+            passosFragment.populaCamposComReceita(receita);
+        }
 
     }
 

@@ -75,6 +75,7 @@ public class AdapterIngredientes extends RecyclerView.Adapter<AdapterIngrediente
             nomeIngrediente.setText(ingrediente.getNomeIngrediente());
             medidaIngrediente.setText(ingrediente.getMedida());
             quantidadeIngrediente.setText(String.valueOf(ingrediente.getQtde()));
+
         }
     }
 

@@ -31,14 +31,15 @@
             android:layout_height="@dimen/tamanho_imagem_receita"
             android:layout_margin="5dp"
             android:contentDescription="@string/receita_content_description"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             android:src="@drawable/food_placeholder" />
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="right">
 
             <Button
                 android:id="@+id/btn_ingredientes"

@@ -1,5 +1,8 @@
 package br.com.agilles.receitas.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -12,8 +15,9 @@ import java.util.List;
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-
 public class Receita implements Serializable {
+
+
 
     @JsonProperty("image")
     private String imagem;
@@ -68,6 +72,11 @@ public class Receita implements Serializable {
 
     public void setRendimento(int rendimento) {
         this.rendimento = rendimento;
+    }
+
+
+
+    public Receita() {
     }
 
 

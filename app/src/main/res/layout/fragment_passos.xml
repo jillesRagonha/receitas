@@ -1,13 +1,43 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="br.com.agilles.receitas.ui.fragments.PassosFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
-</FrameLayout>
+    <ImageView
+        android:id="@+id/cor_fundo_titulo"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:src="@color/colorAccent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/txt_passos_titulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/titulo_passo"
+        android:textColor="@color/colorTextIcons"
+        android:textSize="@dimen/tamanho_titulo"
+        app:layout_constraintBottom_toBottomOf="@id/cor_fundo_titulo"
+        app:layout_constraintEnd_toEndOf="@id/cor_fundo_titulo"
+        app:layout_constraintStart_toStartOf="@id/cor_fundo_titulo"
+        app:layout_constraintTop_toTopOf="@id/cor_fundo_titulo" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_passos"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cor_fundo_titulo"
+        tools:listitem="@layout/item_passos" />
+</android.support.constraint.ConstraintLayout>

@@ -1,5 +1,8 @@
 package br.com.agilles.receitas.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
@@ -16,6 +19,11 @@ public class Ingrediente implements Serializable {
     private String medida;
     @JsonProperty("quantity")
     private float qtde;
+
+
+
+    public Ingrediente() {
+    }
 
 
     public String getNomeIngrediente() {
@@ -41,4 +49,7 @@ public class Ingrediente implements Serializable {
     public void setQtde(int qtde) {
         this.qtde = qtde;
     }
+
+
+
 }

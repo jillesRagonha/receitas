@@ -12,4 +12,5 @@
     <dimen name="tamanho_titulo_ingredientes">24sp</dimen>
     <dimen name="tamanho_imagem_receita_horizontal">150dp</dimen>
     <dimen name="altura_card_horizontal">350dp</dimen>
+    <dimen name="tamanho_sub_titulo">20sp</dimen>
 </resources>
