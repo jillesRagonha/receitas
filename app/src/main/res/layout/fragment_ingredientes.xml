@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:elevation="10dp"
-    app:cardCornerRadius="8dp"
+    android:elevation="@dimen/card_elevation"
+    app:cardCornerRadius="@dimen/card_cornerRadius"
     app:cardUseCompatPadding="true">
 
     <LinearLayout

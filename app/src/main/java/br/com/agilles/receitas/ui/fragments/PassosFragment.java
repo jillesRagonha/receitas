@@ -55,4 +55,6 @@ public class PassosFragment extends Fragment {
         recyclerView.setAdapter(adapterPassos);
 
     }
+
+
 }

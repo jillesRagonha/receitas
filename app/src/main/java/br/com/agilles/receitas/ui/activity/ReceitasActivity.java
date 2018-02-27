@@ -22,6 +22,7 @@ import br.com.agilles.receitas.services.WebCliente;
 import br.com.agilles.receitas.ui.fragments.IngredientesFragment;
 import br.com.agilles.receitas.ui.fragments.ListaReceitasFragment;
 import br.com.agilles.receitas.ui.fragments.PassosFragment;
+import br.com.agilles.receitas.ui.fragments.PlayerFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -43,15 +44,19 @@ public class ReceitasActivity extends AppCompatActivity implements ReceitasDeleg
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_receitas);
 
-
         ButterKnife.bind(this);
+
 
         FragmentManager supportFragmentManager = getSupportFragmentManager();
         FragmentTransaction tx = supportFragmentManager.beginTransaction();
-        tx.replace(R.id.frame_principal, listaReceitasFragment);
+
+
         if (estaNoModoPaisagem()) {
             tx.replace(R.id.frame_secundario, ingredientesFragment);
+        } else {
+            tx.replace(R.id.frame_principal, listaReceitasFragment);
         }
+
         tx.commit();
     }
 
@@ -73,44 +78,58 @@ public class ReceitasActivity extends AppCompatActivity implements ReceitasDeleg
     public void lidaComIngredienteSelecionado(Receita receita) {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction tx = manager.beginTransaction();
+        ingredientesFragment = new IngredientesFragment();
+        Bundle parametros = new Bundle();
+        parametros.putSerializable("receita", receita);
+        ingredientesFragment.setArguments(parametros);
         if (!estaNoModoPaisagem()) {
-            ingredientesFragment = new IngredientesFragment();
-            Bundle parametros = new Bundle();
-            parametros.putSerializable("receita", receita);
-            ingredientesFragment.setArguments(parametros);
             tx.replace(R.id.frame_principal, ingredientesFragment);
             tx.addToBackStack(null);
-            tx.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-            tx.commit();
         } else {
-            IngredientesFragment ingredientesFragment = (IngredientesFragment) manager.findFragmentById(R.id.frame_secundario);
-            ingredientesFragment.populaCamposComReceita(receita);
-
+            tx.replace(R.id.frame_secundario, ingredientesFragment);
         }
-
+        tx.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        tx.commit();
     }
+
 
     @Override
     public void lidaComPassosReceitaSelecionada(Receita receita) {
 
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction tx = manager.beginTransaction();
+        passosFragment = new PassosFragment();
+        Bundle parametros = new Bundle();
+        parametros.putSerializable("receita", receita);
+        passosFragment.setArguments(parametros);
         if (!estaNoModoPaisagem()) {
-            passosFragment = new PassosFragment();
-            Bundle parametros = new Bundle();
-            parametros.putSerializable("receita", receita);
-            passosFragment.setArguments(parametros);
             tx.replace(R.id.frame_principal, passosFragment);
             tx.addToBackStack(null);
-            tx.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-            tx.commit();
         } else {
-
-            PassosFragment passosFragment = (PassosFragment) manager.findFragmentById(R.id.frame_secundario);
-            passosFragment.populaCamposComReceita(receita);
+            tx.replace(R.id.frame_secundario, passosFragment);
         }
-
+        tx.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        tx.commit();
     }
+
+    @Override
+    public void lidaComVideoDoPasso(String video) {
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction tx = manager.beginTransaction();
+        PlayerFragment playerFragment = new PlayerFragment();
+        Bundle parametros = new Bundle();
+        parametros.putString("endereco", video);
+        playerFragment.setArguments(parametros);
+        if (!estaNoModoPaisagem()) {
+            tx.replace(R.id.frame_principal, playerFragment);
+        } else {
+            tx.replace(R.id.frame_secundario, playerFragment);
+        }
+        tx.addToBackStack(null);
+        tx.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        tx.commit();
+    }
+
 
     @Subscribe
     public void lidaComSucesso(ReceitaEvent event) {

@@ -17,4 +17,6 @@ public interface ReceitasDelegate {
     void lidaComIngredienteSelecionado(Receita receita);
 
     void lidaComPassosReceitaSelecionada(Receita receita);
+
+    void lidaComVideoDoPasso(String video);
 }

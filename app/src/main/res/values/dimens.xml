@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="tamanho_titulo">36sp</dimen>
-    <dimen name="card_cornerRadius">8dp</dimen>
+    <dimen name="card_cornerRadius">10dp</dimen>
     <dimen name="card_elevation">10dp</dimen>
     <dimen name="no_height">0dp</dimen>
     <dimen name="tamanho_imagem_receita">250dp</dimen>

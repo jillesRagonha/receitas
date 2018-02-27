@@ -11,9 +11,11 @@ import android.widget.TextView;
 import java.util.List;
 
 import br.com.agilles.receitas.R;
+import br.com.agilles.receitas.delegate.ReceitasDelegate;
 import br.com.agilles.receitas.models.Passos;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by jille on 25/02/2018.
@@ -77,6 +79,13 @@ public class AdapterPassos extends RecyclerView.Adapter<AdapterPassos.ViewHolder
             }
 
 
+        }
+
+        @OnClick(R.id.btn_camera)
+        void clicaBotaoVideo() {
+            Passos passo = listaPassos.get(getAdapterPosition());
+            ReceitasDelegate delegate = (ReceitasDelegate) itemView.getContext();
+            delegate.lidaComVideoDoPasso(passo.getVideoUrl());
         }
     }
 }
