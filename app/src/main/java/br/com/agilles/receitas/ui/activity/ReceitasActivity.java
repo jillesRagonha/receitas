@@ -33,6 +33,7 @@ public class ReceitasActivity extends AppCompatActivity implements ReceitasDeleg
 
     private static final String INGREDIENTE_TAG = "ingrediente_fragment";
     private static final String PASSOS_TAG = "passos_fragment";
+    private static final String VIDEOS_TAG = "videos_fragment";
     private int fragmentoExibido;
 
     private static final int RECEITA_INGREDIENTES = 1;
@@ -42,7 +43,7 @@ public class ReceitasActivity extends AppCompatActivity implements ReceitasDeleg
     ListaReceitasFragment listaReceitasFragment = new ListaReceitasFragment();
     IngredientesFragment ingredientesFragment = new IngredientesFragment();
     PassosFragment passosFragment = new PassosFragment();
-    Fragment fragment = new Fragment();
+    PlayerFragment playerFragment = new PlayerFragment();
 
     @BindView(R.id.progressBar)
     ProgressBar mProgressBar;
@@ -61,6 +62,10 @@ public class ReceitasActivity extends AppCompatActivity implements ReceitasDeleg
         tx.replace(R.id.frame_principal, listaReceitasFragment);
 
         if (savedInstanceState != null) {
+            ingredientesFragment = (IngredientesFragment) getSupportFragmentManager().getFragment(savedInstanceState, INGREDIENTE_TAG);
+            passosFragment = (PassosFragment) getSupportFragmentManager().getFragment(savedInstanceState, PASSOS_TAG);
+            playerFragment = (PlayerFragment) getSupportFragmentManager().getFragment(savedInstanceState, VIDEOS_TAG);
+
 
             fragmentoExibido = savedInstanceState.getInt("fragmentoExibido");
 
@@ -68,13 +73,23 @@ public class ReceitasActivity extends AppCompatActivity implements ReceitasDeleg
 
                 switch (fragmentoExibido) {
                     case RECEITA_INGREDIENTES:
-                        ingredientesFragment = (IngredientesFragment) getSupportFragmentManager().getFragment(savedInstanceState, INGREDIENTE_TAG);
+                        supportFragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                        supportFragmentManager.executePendingTransactions();
+                        supportFragmentManager.beginTransaction().remove(ingredientesFragment).commit();
                         tx.replace(R.id.frame_secundario, ingredientesFragment);
-                        tx.commit();
                         break;
                     case RECEITA_PASSOS:
-                        passosFragment = (PassosFragment) getSupportFragmentManager().getFragment(savedInstanceState, PASSOS_TAG);
+                        supportFragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                        supportFragmentManager.executePendingTransactions();
+                        supportFragmentManager.beginTransaction().remove(passosFragment).commit();
                         tx.replace(R.id.frame_secundario, passosFragment);
+                        break;
+
+                    case RECEITA_VIDEOS:
+                        supportFragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                        supportFragmentManager.executePendingTransactions();
+                        supportFragmentManager.beginTransaction().remove(playerFragment).commit();
+                        tx.replace(R.id.frame_secundario, playerFragment);
                         break;
                     default:
                         tx.replace(R.id.frame_secundario, new IngredientesFragment());
@@ -128,11 +143,9 @@ public class ReceitasActivity extends AppCompatActivity implements ReceitasDeleg
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction tx = manager.beginTransaction();
         passosFragment = new PassosFragment();
-        fragment = new PassosFragment();
         Bundle parametros = new Bundle();
         parametros.putSerializable("receita", receita);
         passosFragment.setArguments(parametros);
-        fragment.setArguments(parametros);
         if (!estaNoModoPaisagem()) {
             tx.replace(R.id.frame_principal, passosFragment);
             tx.addToBackStack(null);
@@ -152,15 +165,15 @@ public class ReceitasActivity extends AppCompatActivity implements ReceitasDeleg
         Bundle parametros = new Bundle();
         parametros.putString("endereco", video);
         playerFragment.setArguments(parametros);
-        fragment = new PlayerFragment();
-        fragment.setArguments(parametros);
 
         if (!estaNoModoPaisagem()) {
             tx.replace(R.id.frame_principal, playerFragment);
+            tx.addToBackStack(null);
         } else {
             tx.replace(R.id.frame_secundario, playerFragment);
+            tx.addToBackStack(null);
+
         }
-        tx.addToBackStack(null);
         fragmentoExibido = RECEITA_VIDEOS;
 
         tx.commit();
@@ -198,7 +211,10 @@ public class ReceitasActivity extends AppCompatActivity implements ReceitasDeleg
                 getSupportFragmentManager().putFragment(outState, PASSOS_TAG, passosFragment);
                 outState.putInt("fragmentoExibido", fragmentoExibido);
                 break;
-
+            case RECEITA_VIDEOS:
+                getSupportFragmentManager().putFragment(outState, VIDEOS_TAG, playerFragment);
+                outState.putInt("fragmentoExibido", fragmentoExibido);
+                break;
         }
     }
 

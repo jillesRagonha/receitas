@@ -56,6 +56,7 @@ public class PlayerFragment extends Fragment {
         Bundle parametros = getArguments();
         if (parametros != null) {
             enderecoVideo = parametros.getString("endereco");
+
         }
 
         initializePlayer();
