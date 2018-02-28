@@ -1,6 +1,7 @@
 package br.com.agilles.receitas.ui.activity;
 
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -60,18 +61,19 @@ public class ReceitasActivity extends AppCompatActivity implements ReceitasDeleg
         tx.replace(R.id.frame_principal, listaReceitasFragment);
 
         if (savedInstanceState != null) {
-            tx.replace(R.id.frame_principal, listaReceitasFragment);
+
             fragmentoExibido = savedInstanceState.getInt("fragmentoExibido");
 
-            ingredientesFragment = (IngredientesFragment) getSupportFragmentManager().getFragment(savedInstanceState, INGREDIENTE_TAG);
-            passosFragment = (PassosFragment) getSupportFragmentManager().getFragment(savedInstanceState, PASSOS_TAG);
-
             if (estaNoModoPaisagem()) {
+
                 switch (fragmentoExibido) {
                     case RECEITA_INGREDIENTES:
+                        ingredientesFragment = (IngredientesFragment) getSupportFragmentManager().getFragment(savedInstanceState, INGREDIENTE_TAG);
                         tx.replace(R.id.frame_secundario, ingredientesFragment);
+                        tx.commit();
                         break;
                     case RECEITA_PASSOS:
+                        passosFragment = (PassosFragment) getSupportFragmentManager().getFragment(savedInstanceState, PASSOS_TAG);
                         tx.replace(R.id.frame_secundario, passosFragment);
                         break;
                     default:
@@ -199,6 +201,13 @@ public class ReceitasActivity extends AppCompatActivity implements ReceitasDeleg
 
         }
     }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState, PersistableBundle persistentState) {
+        super.onRestoreInstanceState(savedInstanceState, persistentState);
+    }
+
+
 }
 
 
