@@ -49,16 +49,11 @@ public class IngredientesFragment extends Fragment {
         }
 
 
+
         return view;
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (savedInstanceState != null) {
-            this.receita = (Receita) savedInstanceState.getSerializable("receita");
-        }
-    }
+
 
     public void populaCamposComReceita(Receita receita) {
         AdapterIngredientes adapterIngredientes = new AdapterIngredientes(receita.getIngredientes(), getActivity());
@@ -68,6 +63,14 @@ public class IngredientesFragment extends Fragment {
         mTextReceitasVazia.setVisibility(View.GONE);
 
 
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (savedInstanceState != null) {
+            this.receita = (Receita) savedInstanceState.getSerializable("receita");
+        }
     }
 
     @Override

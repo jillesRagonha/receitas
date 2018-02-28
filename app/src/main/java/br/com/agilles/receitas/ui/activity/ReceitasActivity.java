@@ -30,10 +30,18 @@ public class ReceitasActivity extends AppCompatActivity implements ReceitasDeleg
 
     WebCliente webCliente = new WebCliente();
 
+    private static final String INGREDIENTE_TAG = "ingrediente_fragment";
+    private static final String PASSOS_TAG = "passos_fragment";
+    private int fragmentoExibido;
+
+    private static final int RECEITA_INGREDIENTES = 1;
+    private static final int RECEITA_PASSOS = 2;
+    private static final int RECEITA_VIDEOS = 3;
+
     ListaReceitasFragment listaReceitasFragment = new ListaReceitasFragment();
     IngredientesFragment ingredientesFragment = new IngredientesFragment();
     PassosFragment passosFragment = new PassosFragment();
-    Fragment fragment = new IngredientesFragment();
+    Fragment fragment = new Fragment();
 
     @BindView(R.id.progressBar)
     ProgressBar mProgressBar;
@@ -49,15 +57,33 @@ public class ReceitasActivity extends AppCompatActivity implements ReceitasDeleg
 
         FragmentManager supportFragmentManager = getSupportFragmentManager();
         FragmentTransaction tx = supportFragmentManager.beginTransaction();
+        tx.replace(R.id.frame_principal, listaReceitasFragment);
 
-
-        if (estaNoModoPaisagem()) {
-            tx.replace(R.id.frame_secundario, ingredientesFragment);
-        } else {
+        if (savedInstanceState != null) {
             tx.replace(R.id.frame_principal, listaReceitasFragment);
+            fragmentoExibido = savedInstanceState.getInt("fragmentoExibido");
+
+            ingredientesFragment = (IngredientesFragment) getSupportFragmentManager().getFragment(savedInstanceState, INGREDIENTE_TAG);
+            passosFragment = (PassosFragment) getSupportFragmentManager().getFragment(savedInstanceState, PASSOS_TAG);
+
+            if (estaNoModoPaisagem()) {
+                switch (fragmentoExibido) {
+                    case RECEITA_INGREDIENTES:
+                        tx.replace(R.id.frame_secundario, ingredientesFragment);
+                        break;
+                    case RECEITA_PASSOS:
+                        tx.replace(R.id.frame_secundario, passosFragment);
+                        break;
+                    default:
+                        tx.replace(R.id.frame_secundario, new IngredientesFragment());
+                }
+            }
+
         }
 
         tx.commit();
+
+
     }
 
     private boolean estaNoModoPaisagem() {
@@ -82,14 +108,15 @@ public class ReceitasActivity extends AppCompatActivity implements ReceitasDeleg
         Bundle parametros = new Bundle();
         parametros.putSerializable("receita", receita);
         ingredientesFragment.setArguments(parametros);
+        tx.addToBackStack(null);
+
         if (!estaNoModoPaisagem()) {
             tx.replace(R.id.frame_principal, ingredientesFragment);
-            tx.addToBackStack(null);
         } else {
             tx.replace(R.id.frame_secundario, ingredientesFragment);
         }
-        tx.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         tx.commit();
+        fragmentoExibido = RECEITA_INGREDIENTES;
     }
 
 
@@ -99,17 +126,20 @@ public class ReceitasActivity extends AppCompatActivity implements ReceitasDeleg
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction tx = manager.beginTransaction();
         passosFragment = new PassosFragment();
+        fragment = new PassosFragment();
         Bundle parametros = new Bundle();
         parametros.putSerializable("receita", receita);
         passosFragment.setArguments(parametros);
+        fragment.setArguments(parametros);
         if (!estaNoModoPaisagem()) {
             tx.replace(R.id.frame_principal, passosFragment);
             tx.addToBackStack(null);
         } else {
             tx.replace(R.id.frame_secundario, passosFragment);
         }
-        tx.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         tx.commit();
+        fragmentoExibido = RECEITA_PASSOS;
+
     }
 
     @Override
@@ -120,13 +150,17 @@ public class ReceitasActivity extends AppCompatActivity implements ReceitasDeleg
         Bundle parametros = new Bundle();
         parametros.putString("endereco", video);
         playerFragment.setArguments(parametros);
+        fragment = new PlayerFragment();
+        fragment.setArguments(parametros);
+
         if (!estaNoModoPaisagem()) {
             tx.replace(R.id.frame_principal, playerFragment);
         } else {
             tx.replace(R.id.frame_secundario, playerFragment);
         }
         tx.addToBackStack(null);
-        tx.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        fragmentoExibido = RECEITA_VIDEOS;
+
         tx.commit();
     }
 
@@ -150,5 +184,21 @@ public class ReceitasActivity extends AppCompatActivity implements ReceitasDeleg
         super.onStop();
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        switch (fragmentoExibido) {
+            case RECEITA_INGREDIENTES:
+                getSupportFragmentManager().putFragment(outState, INGREDIENTE_TAG, ingredientesFragment);
+                outState.putInt("fragmentoExibido", fragmentoExibido);
+                break;
+            case RECEITA_PASSOS:
+                getSupportFragmentManager().putFragment(outState, PASSOS_TAG, passosFragment);
+                outState.putInt("fragmentoExibido", fragmentoExibido);
+                break;
 
+        }
+    }
 }
+
+

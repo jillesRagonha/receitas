@@ -2,11 +2,13 @@ package br.com.agilles.receitas.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
+
 /**
  * Created by jille on 20/02/2018.
  */
 
-public class Passos {
+public class Passos implements Serializable {
 
     private int id;
     @JsonProperty("shortDescription")
