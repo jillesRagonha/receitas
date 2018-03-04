@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 public class AtualizarWidget extends IntentService {
 
+    public static String ACTION_UPDATE = "android.appwidget.action.APPWIDGET_UPDATE2";
     public static String LISTA_INGREDIENTES_DA_ACTIVITY = "LISTA_INGREDIENTES_DA_ACTIVITY";
     private static final String TAG = "AtualizarWidget";
 
@@ -41,8 +42,8 @@ public class AtualizarWidget extends IntentService {
     }
 
     private void atualizarWidget(ArrayList<String> listaIngredientes) {
-        Intent intent = new Intent("android.appwidget.action.APPWIDGET_UPDATE2");
-        intent.setAction("android.appwidget.action.APPWIDGET_UPDATE2");
+        Intent intent = new Intent(getBaseContext(), ReceitasWidget.class);
+        intent.setAction(ACTION_UPDATE);
         intent.putExtra(LISTA_INGREDIENTES_DA_ACTIVITY, listaIngredientes);
         sendBroadcast(intent);
     }
