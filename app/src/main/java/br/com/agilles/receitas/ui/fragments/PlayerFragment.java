@@ -56,7 +56,9 @@ public class PlayerFragment extends Fragment {
         Bundle parametros = getArguments();
         if (parametros != null) {
             enderecoVideo = parametros.getString("endereco");
-
+        }
+        if (savedInstanceState != null) {
+            posicaoPlayback = savedInstanceState.getLong("posicao");
         }
 
         initializePlayer();
@@ -105,6 +107,24 @@ public class PlayerFragment extends Fragment {
     }
 
     @Override
+    public void onStop() {
+        super.onStop();
+        releasePlayer();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        initializePlayer();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        releasePlayer();
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         releasePlayer();
@@ -114,5 +134,11 @@ public class PlayerFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         releasePlayer();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putLong("posicao", posicaoPlayback);
     }
 }

@@ -15,4 +15,8 @@
     <string name="descricao_curta">Descrição Curta</string>
     <string name="descricao">Descricao de como fazer a receita</string>
     <string name="id_passo">1-</string>
+    <string name="appwidget_text">Receitas</string>
+    <string name="appwidget_empty_text">OS INGREDIENTES APARECERÃO APÓS EXECUTAR O APLICATIVO DE &quot;RECEITAS&quot;</string>
+    <string name="add_widget">Adicionar Widget</string>
+    <string name="snackIngredientes">Lista de ingredientes adicionada ao Widget</string>
 </resources>

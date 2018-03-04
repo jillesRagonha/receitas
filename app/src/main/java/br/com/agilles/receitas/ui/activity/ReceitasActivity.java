@@ -2,7 +2,6 @@ package br.com.agilles.receitas.ui.activity;
 
 import android.os.Bundle;
 import android.os.PersistableBundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -161,22 +160,22 @@ public class ReceitasActivity extends AppCompatActivity implements ReceitasDeleg
     public void lidaComVideoDoPasso(String video) {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction tx = manager.beginTransaction();
-        PlayerFragment playerFragment = new PlayerFragment();
+        playerFragment = new PlayerFragment();
         Bundle parametros = new Bundle();
         parametros.putString("endereco", video);
         playerFragment.setArguments(parametros);
 
         if (!estaNoModoPaisagem()) {
             tx.replace(R.id.frame_principal, playerFragment);
-            tx.addToBackStack(null);
         } else {
             tx.replace(R.id.frame_secundario, playerFragment);
-            tx.addToBackStack(null);
-
         }
-        fragmentoExibido = RECEITA_VIDEOS;
+        tx.addToBackStack(null);
 
         tx.commit();
+        fragmentoExibido = RECEITA_VIDEOS;
+
+
     }
 
 
@@ -204,16 +203,24 @@ public class ReceitasActivity extends AppCompatActivity implements ReceitasDeleg
         super.onSaveInstanceState(outState);
         switch (fragmentoExibido) {
             case RECEITA_INGREDIENTES:
-                getSupportFragmentManager().putFragment(outState, INGREDIENTE_TAG, ingredientesFragment);
-                outState.putInt("fragmentoExibido", fragmentoExibido);
+                if (ingredientesFragment.isAdded()) {
+                    getSupportFragmentManager().putFragment(outState, INGREDIENTE_TAG, ingredientesFragment);
+                    outState.putInt("fragmentoExibido", fragmentoExibido);
+                }
                 break;
+
             case RECEITA_PASSOS:
-                getSupportFragmentManager().putFragment(outState, PASSOS_TAG, passosFragment);
-                outState.putInt("fragmentoExibido", fragmentoExibido);
+                if (passosFragment.isAdded()) {
+                    getSupportFragmentManager().putFragment(outState, PASSOS_TAG, passosFragment);
+                    outState.putInt("fragmentoExibido", fragmentoExibido);
+                }
                 break;
             case RECEITA_VIDEOS:
-                getSupportFragmentManager().putFragment(outState, VIDEOS_TAG, playerFragment);
-                outState.putInt("fragmentoExibido", fragmentoExibido);
+
+                if (playerFragment.isAdded()) {
+                    getSupportFragmentManager().putFragment(outState, VIDEOS_TAG, playerFragment);
+                    outState.putInt("fragmentoExibido", fragmentoExibido);
+                }
                 break;
         }
     }

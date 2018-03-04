@@ -10,10 +10,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import br.com.agilles.receitas.R;
 import br.com.agilles.receitas.adapter.AdapterIngredientes;
+import br.com.agilles.receitas.models.Ingrediente;
 import br.com.agilles.receitas.models.Receita;
+import br.com.agilles.receitas.ui.widget.AtualizarWidget;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -27,6 +32,8 @@ public class IngredientesFragment extends Fragment {
 
     @BindView(R.id.textViewReceitaVazia)
     TextView mTextReceitasVazia;
+
+    ArrayList<String> ingredientesParaWidget = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,13 +53,27 @@ public class IngredientesFragment extends Fragment {
             listaIngredientes.setHasFixedSize(true);
             listaIngredientes.setAdapter(adapter);
             mTextReceitasVazia.setVisibility(View.GONE);
+
+            transformaIngredientesParaWidget(receita.getIngredientes());
+            Toast.makeText(getContext(), getString(R.string.snackIngredientes), Toast.LENGTH_SHORT).show();
+
         }
 
 
-
+        AtualizarWidget.inicializarServico(getContext(), ingredientesParaWidget);
         return view;
     }
 
+    private void transformaIngredientesParaWidget(ArrayList<Ingrediente> ingredientes) {
+
+        for (Ingrediente ingrediente : ingredientes) {
+            ingredientesParaWidget.add(ingrediente.getNomeIngrediente() + "\n" +
+                    "Quantidade: " + String.valueOf(ingrediente.getQtde()) + "\n" +
+                    "Medida: " + ingrediente.getMedida() + "\n");
+        }
+
+
+    }
 
 
     public void populaCamposComReceita(Receita receita) {

@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import br.com.agilles.receitas.R;
@@ -62,21 +64,30 @@ public class AdapterPassos extends RecyclerView.Adapter<AdapterPassos.ViewHolder
         @BindView(R.id.txt_descricao)
         TextView getmTxtDescricao;
 
+
+
         @BindView(R.id.btn_camera)
         ImageButton btnCamera;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this,itemView);
+            ButterKnife.bind(this, itemView);
         }
 
         void bind(Passos passos) {
-            mTxtId.setText(String.valueOf(passos.getId()+1));
+            String imagemPasso = passos.getThumbnailUrl();
+            mTxtId.setText(String.valueOf(passos.getId() + 1));
             mTxtDescricaoCurta.setText(passos.getDescricaoCurta());
             getmTxtDescricao.setText(passos.getDescricao());
             if (passos.getVideoUrl().isEmpty() || passos.getVideoUrl() == null) {
                 btnCamera.setVisibility(View.GONE);
             }
+            if (!imagemPasso.isEmpty()) {
+                Picasso.with(context)
+                        .load(imagemPasso)
+                        .into(btnCamera);
+            }
+
 
 
         }
